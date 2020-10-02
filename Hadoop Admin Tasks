@@ -31,10 +31,8 @@ nano hadoop-env.sh
 
 export HADOOP_CLASSPATH=$HADOOP_CLASSPATH:$HADOOP_HOME/share/hadoop/tools/lib/*
 
-d
-hadoop fs -cp s3n://<bucket-name>/<file-name> hdfs:///user/hduser/
 
-hdfs dfs -cp s3n://<bucket-name>/<file-name> /user/hduser/
+hdfs dfs -cp s3a://<bucket-name>/<file-name> /user/hduser/
 
 
 -----*** Distributed copy ***-----
