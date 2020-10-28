@@ -2,16 +2,19 @@
 	Delivering an Enterprise Data Hub in the cloud with Cloudera
 *******************************************************************************
 
-Start a instance with minimum 8 GB ram (preferably m4.large)
+Start a instance with minimum 8/16 GB ram | 4 core (preferably m4.large/m4.xlarge)
+*Launch instance ubuntu 16
+*Instance type(m4.xlarge)
+*add storage (minimum 100gb)
+*Select default security group.(all traffic my ip)
 
-In seccurity group - Select "Default" security group
-
-Edit Deafult security group as below
-all traffic - your-ip/32
 
 
 -----*** SSH in to the instance you created ***-----
-$ ssh -i /path/to/key_file.pem ubuntu@instance_hostname
+Open terminal
+
+$cd Downloads/
+$ ssh -i file.pem ubuntu@instance_hostname
 
 
 -----*** Update the server ***-----
@@ -19,7 +22,7 @@ $ sudo apt-get update && sudo apt-get dist-upgrade -y
 
 -----*** Disable transparent huge pages ***-----
 $ sudo nano /etc/rc.local
-## Add these lines:
+## Add these lines (above exit 0):
 
 if test -f /sys/kernel/mm/transparent_hugepage/enabled; then
     echo never > /sys/kernel/mm/transparent_hugepage/enabled
@@ -44,8 +47,16 @@ $ sudo service ntp start
 sudo sysctl -a | grep vm.swappiness
 sudo sysctl vm.swappiness=1
 
-### Note : Now, save the instance to an image, call it “Cloudera Manager” Make sure to 
-check “No reboot”
+#######Create AMI###########
+*select instance.
+*Go to actions>image>create image.
+*Give name.
+*select no reboot.
+*create
+*launch ami.
+*Instance type(m4.xlarge)
+*no. of instance 5
+*select existing security group and launch.
 
 
 -----*** Install and start CM ***-----
@@ -54,16 +65,104 @@ SSH into cloudera-manager host
 
 
 $ wget http://archive.cloudera.com/cm5/installer/latest/cloudera-manager-installer.bin
+$ls
 
 $ chmod u+x cloudera-manager-installer.bin
 
 $ sudo ./cloudera-manager-installer.bin
 
+############################Web ui will appear Do the following.########################
+*next(cloudera manager read me)
+*next(cloudera standard license)
+*accept licence(yes)
+*next(oracle binary code license)
+*accept licence(yes)
+***********It will get installed************
+*ok
+*ok
 
-## in browser "public_ip_of_cm:7180" 
+## Go in browser(Google chrome) and type 
+ "public_ip_of_cm:7180" 
 
 username : admin
 password : admin 
+
+
+*Tick Checkbox(End User License Terms and Conditions) &&&Click on Continue.
+*(Welcome to Cloudera Manager)  Keep it as it is. because we dont want paid support. &&&Click on Continue
+*(Thank you for choosing Cloudera Manager and CDH.) &&&Click on Continue
+*(Specify hosts for your CDH cluster installation.) Copy and paste all private dns of instances. &&&Click on Continue
+
+On Select Repository page.................do following
+
+*Choose method(use parcel)
+*latest CDH version
+*no additional parcel  &&&Click on Continue
+
+
+on Accept JDK License page.............do following
+
+*Tick on(Install Oracle Java SE Development Kit (JDK 7)) &&&Click on Continue
+*Don't Enable Single User Mode &&&Click on Continue
+
+On Enter Login Credentials page................do following
+
+*Login To All Hosts As: Another user(ubuntu)
+*Authentication Method: All hosts accept same private key
+		*Private Key File: Choose file from hdd. &&&Click on Continue
+*After installation of all agents &&&Click on Continue
+*After Installation of Parcels &&&Click on Continue
+*Inspect hosts for correctness  &&&Click on finish
+
+*Select Services : Core Hadoop &&&Click on continue
+
+
+########Tricky Part (Assigning roles)############
+
+In HDFS
+	>Data node(Click on custom)
+	>cm pe datanode chalu nahi karte kabhi bhi to cm ka private ip check kr lena ek bar.
+	>Choose any 3 data node other than CM.
+	>to verify click on View By Hosts.
+
+In Cloudera Management Service
+	jaha par cloudera manager chal raha waha par ham ye services chalayenge.
+	>Service Monitor (select ip of CM)
+	>Host Monitor    (select ip of CM)
+	>Reports Manager (select ip of CM)
+	>Event Server    (select ip of CM)
+	>Alert Publisher (select ip of CM)
+
+In HDFS
+	>SecondaryNameNode	(Jo khali hai uspe dal do)
+In Hive
+	>Hive Metastore Server  (Jo khali hai uspe dal do)
+In Oozie
+	>Oozie Server		(Jo khali hai uspe dal do)
+In YARN (MR2 Included)
+	>Resource Manager	(Jo khali hai uspe dal do)
+In ZooKeeper
+	>server (isko kam se kam 3 server pe chalana padta other than datanode. to hamare paas other than data nodes 3 server hai available to uspe dal do)
+&&&Click on continue.
+
+#############
+
+On Setup Database page...............do following
+*Click on Test Connection &&&Click on continue.
+
+#############################################################################
+##########dfs/nn me edits and fsimages are stored.###########################
+#############################################################################
+
+*Review Changes  &&&Click on continue.
+
+On First Run Command page ..........do following
+&&&Click on continue.
+
+*************It will show U congratulations &&&Click on***********
+******Web UI of Horton work is based on apache ambry.***********
+******Web UI of Cloudera is based on apache bigtop project.********
+
 
 ## Note : in login credentials page 
 	  select user ubuntu 
