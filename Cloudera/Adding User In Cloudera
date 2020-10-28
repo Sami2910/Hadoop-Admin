@@ -1,0 +1,80 @@
+1) Click on Administration
+2) Users
+3) Add User
+    Username        : xyz
+    Password        : 123
+    Repeat Password : 123
+    Role            : 1. Dashboard User
+                      2. User Administrator
+                      3. BDR Administrator
+                      4. Operator
+                      5. Full Administrator
+                      6. Cluster Administrator
+                      7. Limited Operator
+                      8. Navigator Administrator
+                      9. Configurator
+                     10. Read-Only
+                     11. Auditor
+                     12. Key Administrator
+1. Dashboard Users can:
+     → View data in Cloudera Manager
+     → Create, modify, and delete your own dashboards
+     
+2. User Administrators can:
+     → View data in Cloudera Manager
+     → Manage user accounts and configuration of external authentication
+     → Create, update, or delete external account configuration
+     
+3. BDR Administrators can:
+     → View data in Cloudera Manager
+     → Create replication schedules and snapshot policies
+     
+4. Operators can:
+     → View data in Cloudera Manager
+     → Decommission hosts
+     → Recommission hosts, and decommission and recommission roles
+     → Start, stop, and restart most clusters, services, and roles
+     → Start, stop, and restart KMS
+
+5. Full Administrators 
+     → have permissions to view all data and perform all actions, including reconfiguring and restarting services, and administering other users.
+     
+6. Cluster Administrators have permissions to view all data and perform all actions, except:
+     → Administer Cloudera Navigator
+     → Create replication schedules and snapshot policies
+     → View audit events
+     → Manage user accounts and configuration of external authentication
+     → Manage Full Administrator accounts
+     → Configure HDFS Encryption, administer Key Trustee Server, and manage encryption keys
+     → Create, update, or delete external account configuration
+     
+7. Limited Operators can:
+     → View data in Cloudera Manager
+     → Decommission hosts
+     
+8. Navigator Administrators can:
+     → View data in Cloudera Manager
+     → Administer Cloudera Navigator
+     → View audit events
+     
+9. Configurators can:
+     → View data in Cloudera Manager
+     → Decommission hosts
+     → Recommission hosts, and decommission and recommission roles
+     → Start, stop, and restart most clusters, services, and roles
+     → Enter and exit Maintenance Mode
+     → Edit the configuration of services and roles
+     → Create, modify, and delete your own dashboards
+     → Start, stop, and restart KMS
+     
+10. Read-Only Users can:
+     → View data in Cloudera Manager
+     
+11. Auditors can:
+     → View data in Cloudera Manager
+     → View audit events
+     
+12. Key Administrators can:
+     → View data in Cloudera Manager
+     → Configure HDFS Encryption, administer Key Trustee Server, and manage encryption keys
+     → Start, stop, and restart KMS
