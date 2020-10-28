@@ -1,3 +1,10 @@
+Launch Instance
+Ubuntu 16
+t2.medium
+default security group (add new-> All Traffic->Source(my IP)
+launch
+connect to ssh terminal
+
 # Install Java
 sudo apt-get update
 sudo apt install default-jdk -y
@@ -8,15 +15,23 @@ sudo addgroup hadoop
 sudo adduser hduser --ingroup hadoop 
 sudo adduser hduser sudo
 sudo su hduser
+cd
 
+## Configure Password Less SSH
 #Install SSH
 sudo apt-get install openssh-server -y
 
 #Configure SSH
 ssh-keygen
+  - keep it as it is (enter)
+  - keep it as it is (enter)
+  - keep it as it is (enter)
 cd .ssh
 cat id_rsa.pub >> authorized_keys
 ssh localhost
+exit
+cd
+
 
 #Disable IPV6
 sudo nano /etc/sysctl.conf
@@ -114,6 +129,7 @@ nano yarn-site.xml
       <value>mapreduce_shuffle</value>
    </property>
 
+cd
 
 #Format Namenode
 hdfs namenode -format
