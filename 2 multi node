@@ -53,11 +53,11 @@ java -version
 
 
 # Download and Install Hadoop
-wget -c https://www-us.apache.org/dist/hadoop/common/hadoop-2.9.2/hadoop-2.9.2.tar.gz
+wget -c https://www-us.apache.org/dist/hadoop/common/hadoop-2.10.1/hadoop-2.10.1.tar.gz
 $ls
-tar -xzvf hadoop-2.9.2.tar.gz
+tar -xzvf hadoop-2.10.1.tar.gz
 $ls
-sudo mv hadoop-2.9.2 /usr/local/hadoop
+sudo mv hadoop-2.10.1 /usr/local/hadoop
 sudo chown -R hduser:hadoop /usr/local/hadoop
 
 # Set Enviornment Variable
@@ -333,11 +333,11 @@ $dsh -a jps
 
 
 hdfs dfs -mkdir -p /user/hduser
-hdfs dfs -put hadoop-2.9.2.tar.gz /user/hduser
+hdfs dfs -put hadoop-2.10.1.tar.gz /user/hduser
 hdfs dfs -ls 
 hdfs dfs -ls -R
 
-yarn jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.9.2.jar pi  5 10
+yarn jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.10.1.jar pi  5 10
 
 ########Check Web UI For NN##########
 ip address:50070
